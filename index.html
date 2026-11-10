@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 8 Chinese Vocabulary Hub | 8年级中文词汇</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fef2f2',
+                            100: '#ffe1e1',
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                            800: '#991b1b',
+                        },
+                        jade: {
+                            500: '#10b981',
+                            600: '#059669',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        chinese: ['PingFang SC', 'Lantinghei SC', 'Microsoft YaHei', 'SimSun', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        .font-calligraphy {
+            font-family: 'Ma Shan Zheng', 'PingFang SC', cursive;
+        }
+        /* 3D Card Flip */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-full flex flex-col font-sans transition-colors duration-200 selection:bg-brand-500 selection:text-white">
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('dashboard')">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-red-400 flex items-center justify-center text-white text-xl font-bold shadow-md shadow-brand-500/20">
+                        汉
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg leading-tight tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+                            Year 8 Chinese <span class="text-xs px-2 py-0.5 rounded-full bg-brand-100 dark:bg-brand-900/60 text-brand-600 dark:text-brand-300 font-semibold">8年级</span>
+                        </h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Interactive Vocabulary Master</p>
+                    </div>
+                </div>
+
+                <!-- Nav Controls -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/40">
+                        <i class="fa-solid fa-house mr-1.5"></i> Dashboard
+                    </button>
+                    <button onclick="switchTab('flashcards')" id="nav-flashcards" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-clone mr-1.5"></i> Flashcards
+                    </button>
+                    <button onclick="switchTab('dictionary')" id="nav-dictionary" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-book-bookmark mr-1.5"></i> Vocabulary List
+                    </button>
+                    <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-circle-question mr-1.5"></i> Quiz Mode
+                    </button>
+                    <button onclick="switchTab('match')" id="nav-match" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-gamepad mr-1.5"></i> Match Game
+                    </button>
+                    <button onclick="switchTab('writing')" id="nav-writing" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-pen-nib mr-1.5"></i> Writing Canvas
+                    </button>
+                </div>
+
+                <!-- Settings & Dark Mode -->
+                <div class="flex items-center space-x-2">
+                    <button id="theme-toggle" onclick="toggleTheme()" class="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 focus:outline-none" title="Toggle Theme">
+                        <i class="fa-solid fa-moon text-lg dark:hidden"></i>
+                        <i class="fa-solid fa-sun text-lg hidden dark:block text-amber-400"></i>
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 pt-2 pb-4 space-y-1">
+            <button onclick="switchTab('dashboard')" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"><i class="fa-solid fa-house w-6"></i> Dashboard</button>
+            <button onclick="switchTab('flashcards')" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"><i class="fa-solid fa-clone w-6"></i> Flashcards</button>
+            <button onclick="switchTab('dictionary')" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"><i class="fa-solid fa-book-bookmark w-6"></i> Vocabulary List</button>
+            <button onclick="switchTab('quiz')" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"><i class="fa-solid fa-circle-question w-6"></i> Quiz Mode</button>
+            <button onclick="switchTab('match')" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"><i class="fa-solid fa-gamepad w-6"></i> Match Game</button>
+            <button onclick="switchTab('writing')" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"><i class="fa-solid fa-pen-nib w-6"></i> Writing Canvas</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ================= DASHBOARD TAB ================= -->
+        <div id="tab-dashboard" class="tab-content space-y-6">
+            <!-- Hero Banner -->
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-red-600 via-brand-600 to-amber-600 text-white p-6 sm:p-8 shadow-xl">
+                <div class="relative z-10 max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold uppercase tracking-wider mb-3">
+                        <i class="fa-solid fa-graduation-cap"></i> Year 8 Curriculum
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Master Chinese Vocabulary</h2>
+                    <p class="mt-2 text-red-100 text-sm sm:text-base">Explore all 8 units covering Zodiacs, Time, Body, House, Colours, Shopping, Food, and Hobbies with interactive audio and games.</p>
+
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <button onclick="switchTab('flashcards')" class="px-5 py-2.5 rounded-xl bg-white text-brand-700 hover:bg-slate-100 font-bold text-sm shadow-md transition-all active:scale-95">
+                            <i class="fa-solid fa-play mr-2"></i> Start Flashcards
+                        </button>
+                        <button onclick="switchTab('match')" class="px-5 py-2.5 rounded-xl bg-brand-800/40 hover:bg-brand-800/60 border border-white/30 font-bold text-sm text-white transition-all backdrop-blur-sm">
+                            <i class="fa-solid fa-fire mr-2"></i> Play Match Game
+                        </button>
+                    </div>
+                </div>
+                <!-- Decorative Chinese pattern background -->
+                <div class="absolute -right-6 -bottom-10 opacity-15 text-9xl font-calligraphy select-none pointer-events-none">
+                    学无止境
+                </div>
+            </div>
+
+            <!-- Stats Overview -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-book"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-slate-900 dark:text-white" id="stat-total-words">0</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Total Words</div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-slate-900 dark:text-white" id="stat-mastered">0</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Mastered Cards</div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-slate-900 dark:text-white" id="stat-starred">0</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Starred Words</div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-lg bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-slate-900 dark:text-white" id="stat-quiz-score">0%</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Best Quiz Score</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Units Grid -->
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Curriculum Units</h3>
+                    <span class="text-xs text-slate-500 dark:text-slate-400">Select a unit to study</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="units-grid">
+                    <!-- Dynamic Units Grid Rendered via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= FLASHCARDS TAB ================= -->
+        <div id="tab-flashcards" class="tab-content hidden max-w-4xl mx-auto space-y-6">
+            <!-- Filter & Mode Controls -->
+            <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-3 w-full sm:w-auto">
+                    <label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">Unit:</label>
+                    <select id="flashcard-unit-select" onchange="initFlashcards()" class="bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-200 text-sm font-medium rounded-lg px-3 py-2 border-none focus:ring-2 focus:ring-brand-500 w-full sm:w-auto">
+                        <option value="all">All Units (Complete)</option>
+                    </select>
+                </div>
+
+                <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
+                    <button onclick="shuffleFlashcards()" class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-semibold transition-colors">
+                        <i class="fa-solid fa-shuffle mr-1"></i> Shuffle
+                    </button>
+                    <button onclick="resetFlashcardsProgress()" class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-semibold transition-colors">
+                        <i class="fa-solid fa-rotate-left mr-1"></i> Reset Progress
+                    </button>
+                </div>
+            </div>
+
+            <!-- Flashcard Canvas Container -->
+            <div class="relative">
+                <!-- Progress Bar -->
+                <div class="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 mb-2 font-medium">
+                    <span id="fc-counter">Card 1 of 10</span>
+                    <span id="fc-mastered-count" class="text-emerald-600 dark:text-emerald-400 font-semibold"><i class="fa-solid fa-check"></i> 0 Mastered</span>
+                </div>
+                <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden mb-4">
+                    <div id="fc-progress-bar" class="bg-brand-500 h-full transition-all duration-300 w-0"></div>
+                </div>
+
+                <!-- 3D Card -->
+                <div id="flashcard-box" onclick="flipCard()" class="perspective-1000 w-full h-80 sm:h-96 cursor-pointer select-none group">
+                    <div id="flashcard-inner" class="transform-style-3d transition-transform duration-500 w-full h-full relative rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+                        <!-- FRONT SIDE -->
+                        <div class="backface-hidden absolute inset-0 w-full h-full p-8 flex flex-col justify-between items-center text-center">
+                            <div class="w-full flex justify-between items-center text-slate-400">
+                                <span id="fc-unit-tag" class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-slate-600 dark:text-slate-300">Unit 1</span>
+                                <button onclick="event.stopPropagation(); toggleStarCurrentCard()" id="fc-star-btn" class="text-slate-300 hover:text-amber-400 text-xl transition-colors">
+                                    <i class="fa-solid fa-star"></i>
+                                </button>
+                            </div>
+
+                            <div class="my-auto space-y-2">
+                                <div id="fc-emoji" class="text-4xl mb-2">🐼</div>
+                                <div id="fc-hanzi" class="text-6xl sm:text-7xl font-bold font-chinese text-slate-900 dark:text-white tracking-wider">熊猫</div>
+                                <div id="fc-pinyin" class="text-xl sm:text-2xl text-brand-600 dark:text-brand-400 font-medium pt-2">xióng māo</div>
+                            </div>
+
+                            <div class="w-full flex justify-center items-center text-xs text-slate-400 font-medium">
+                                <span><i class="fa-solid fa-hand-pointer mr-1"></i> Click to reveal English</span>
+                            </div>
+                        </div>
+
+                        <!-- BACK SIDE -->
+                        <div class="backface-hidden rotate-y-180 absolute inset-0 w-full h-full p-8 flex flex-col justify-between items-center text-center bg-slate-900 text-white rounded-2xl">
+                            <div class="w-full flex justify-between items-center text-slate-400">
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Meaning & Details</span>
+                                <button onclick="event.stopPropagation(); speakCurrentCard()" class="w-9 h-9 rounded-full bg-brand-600 hover:bg-brand-500 text-white flex items-center justify-center transition-transform active:scale-90">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </button>
+                            </div>
+
+                            <div class="my-auto space-y-3">
+                                <div id="fc-english" class="text-3xl sm:text-4xl font-extrabold text-amber-400">Panda</div>
+                                <div id="fc-pinyin-back" class="text-lg text-slate-300 font-medium">xióng māo</div>
+                                <div id="fc-example" class="text-sm text-slate-400 italic max-w-sm mx-auto">"I love cute pandas."</div>
+                            </div>
+
+                            <div class="w-full text-xs text-slate-400">
+                                Click anywhere to flip back
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Action Controls -->
+                <div class="mt-6 flex items-center justify-between gap-3">
+                    <button onclick="prevCard()" class="px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-bold text-sm shadow-sm transition-all">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Prev
+                    </button>
+
+                    <div class="flex items-center space-x-2">
+                        <button onclick="markCardStatus(false)" class="px-4 py-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 font-bold text-sm transition-all flex items-center gap-1.5">
+                            <i class="fa-solid fa-xmark"></i> Need Practice
+                        </button>
+                        <button onclick="speakCurrentCard()" class="p-2.5 rounded-xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-sm font-semibold transition-all">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                        <button onclick="markCardStatus(true)" class="px-4 py-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-bold text-sm transition-all flex items-center gap-1.5">
+                            <i class="fa-solid fa-check"></i> Got It!
+                        </button>
+                    </div>
+
+                    <button onclick="nextCard()" class="px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-bold text-sm shadow-sm transition-all">
+                        Next <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= DICTIONARY TAB ================= -->
+        <div id="tab-dictionary" class="tab-content hidden space-y-6">
+            <!-- Header & Search -->
+            <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+                <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+                    <div class="relative flex-1">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="dict-search-input" oninput="renderDictionary()" placeholder="Search Hanzi, Pinyin tone, or English..." class="w-full pl-10 pr-4 py-2.5 bg-slate-100 dark:bg-slate-700/60 border-none rounded-xl text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                    </div>
+
+                    <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none" id="dict-unit-filter">
+                        <!-- Rendered via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Word List Count -->
+            <div class="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 font-medium px-1">
+                <span id="dict-results-count">Showing 0 words</span>
+                <span>Click any row for audio pronunciation</span>
+            </div>
+
+            <!-- Words Grid / Table -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="dict-grid">
+                <!-- Rendered dynamically -->
+            </div>
+        </div>
+
+        <!-- ================= QUIZ TAB ================= -->
+        <div id="tab-quiz" class="tab-content hidden max-w-2xl mx-auto space-y-6">
+            <!-- Quiz Start Screen -->
+            <div id="quiz-start-box" class="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xl text-center space-y-6">
+                <div class="w-20 h-20 rounded-2xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 flex items-center justify-center text-3xl mx-auto">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Vocabulary Challenge</h2>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Test your Year 8 Chinese knowledge with multiple-choice questions.</p>
+                </div>
+
+                <div class="space-y-4 text-left bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1">Select Unit</label>
+                        <select id="quiz-unit-select" class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg p-2.5 text-sm font-medium focus:ring-2 focus:ring-brand-500">
+                            <option value="all">All Units Combined</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1">Question Count</label>
+                        <select id="quiz-length-select" class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg p-2.5 text-sm font-medium focus:ring-2 focus:ring-brand-500">
+                            <option value="10">10 Questions</option>
+                            <option value="20">20 Questions</option>
+                            <option value="30">30 Questions</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="startQuiz()" class="w-full py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-base shadow-lg shadow-brand-600/30 transition-all active:scale-98">
+                    Start Quiz Now
+                </button>
+            </div>
+
+            <!-- Active Quiz Box -->
+            <div id="quiz-active-box" class="hidden bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xl space-y-6">
+                <!-- Header -->
+                <div class="flex justify-between items-center">
+                    <span id="quiz-progress-text" class="text-xs font-bold uppercase text-brand-600 dark:text-brand-400">Question 1 / 10</span>
+                    <span id="quiz-score-badge" class="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-full text-xs font-bold">Score: 0</span>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                    <div id="quiz-progress-bar" class="bg-brand-500 h-full transition-all duration-300 w-0"></div>
+                </div>
+
+                <!-- Prompt -->
+                <div class="text-center py-4 space-y-2">
+                    <div id="quiz-prompt-emoji" class="text-3xl"></div>
+                    <div id="quiz-prompt-text" class="text-4xl font-extrabold text-slate-900 dark:text-white font-chinese">--</div>
+                    <div id="quiz-prompt-sub" class="text-sm text-slate-500 dark:text-slate-400">What is the correct English translation?</div>
+                </div>
+
+                <!-- Options Grid -->
+                <div id="quiz-options-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <!-- Dynamic Option Buttons -->
+                </div>
+
+                <!-- Explanation / Next -->
+                <div id="quiz-feedback" class="hidden p-4 rounded-xl text-center space-y-3">
+                    <div id="quiz-feedback-text" class="font-bold text-sm"></div>
+                    <button onclick="nextQuizQuestion()" class="px-6 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm shadow-md transition-all">
+                        Continue <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Result Box -->
+            <div id="quiz-result-box" class="hidden bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xl text-center space-y-6">
+                <div id="quiz-result-icon" class="w-20 h-20 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-4xl mx-auto">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <div>
+                    <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white">Quiz Completed!</h2>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Here is how you performed:</p>
+                </div>
+
+                <div class="bg-slate-50 dark:bg-slate-900 p-6 rounded-xl space-y-2">
+                    <div class="text-5xl font-black text-brand-600 dark:text-brand-400" id="quiz-final-score">80%</div>
+                    <div class="text-xs text-slate-500 font-medium uppercase" id="quiz-final-detail">8 of 10 Correct</div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="switchTab('quiz')" class="flex-1 py-3 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 font-bold text-sm text-slate-700 dark:text-slate-200 transition-all">
+                        Try Again
+                    </button>
+                    <button onclick="switchTab('flashcards')" class="flex-1 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 font-bold text-sm text-white shadow-md transition-all">
+                        Review Flashcards
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= MATCH GAME TAB ================= -->
+        <div id="tab-match" class="tab-content hidden max-w-4xl mx-auto space-y-6">
+            <!-- Game Controls -->
+            <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="text-sm">
+                        <span class="text-xs text-slate-500 dark:text-slate-400 uppercase font-bold block">Timer</span>
+                        <span id="match-timer" class="font-mono text-xl font-bold text-slate-900 dark:text-white">00:00</span>
+                    </div>
+                    <div class="text-sm">
+                        <span class="text-xs text-slate-500 dark:text-slate-400 uppercase font-bold block">Matches</span>
+                        <span id="match-score" class="font-mono text-xl font-bold text-brand-600 dark:text-brand-400">0 / 6</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <select id="match-unit-select" onchange="initMatchGame()" class="bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-200 text-sm font-medium rounded-lg px-3 py-2 border-none">
+                        <option value="all">All Units</option>
+                    </select>
+                    <button onclick="initMatchGame()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-sm font-bold shadow-sm transition-all">
+                        <i class="fa-solid fa-arrows-rotate mr-1"></i> Restart Game
+                    </button>
+                </div>
+            </div>
+
+            <!-- Game Grid -->
+            <div id="match-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-3 sm:gap-4">
+                <!-- Rendered dynamically -->
+            </div>
+        </div>
+
+        <!-- ================= WRITING CANVAS TAB ================= -->
+        <div id="tab-writing" class="tab-content hidden max-w-3xl mx-auto space-y-6">
+            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xl space-y-6 text-center">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Hanzi Character Stroke Canvas</h3>
+                    <div class="flex items-center space-x-2">
+                        <select id="writing-word-select" onchange="updateWritingWord()" class="bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold rounded-lg px-3 py-2 border-none">
+                            <!-- Dynamic selector -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Canvas Wrapper -->
+                <div class="relative w-72 h-72 sm:w-80 sm:h-80 mx-auto bg-slate-50 dark:bg-slate-900 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 overflow-hidden shadow-inner flex items-center justify-center">
+                    <!-- Underlay Reference Character -->
+                    <div id="canvas-underlay" class="absolute inset-0 flex items-center justify-center text-8xl font-chinese text-slate-200 dark:text-slate-800 select-none pointer-events-none font-bold">
+                        猫
+                    </div>
+
+                    <!-- Tianzige (Grid Lines) -->
+                    <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-20" stroke="currentColor" stroke-width="1">
+                        <line x1="50%" y1="0" x2="50%" y2="100%" stroke-dasharray="4" />
+                        <line x1="0" y1="50%" x2="100%" y2="50%" stroke-dasharray="4" />
+                        <line x1="0" y1="0" x2="100%" y2="100%" stroke-dasharray="2" />
+                        <line x1="100%" y1="0" x2="0" y2="100%" stroke-dasharray="2" />
+                    </svg>
+
+                    <!-- Drawing Canvas -->
+                    <canvas id="writing-canvas" width="320" height="320" class="absolute inset-0 w-full h-full cursor-crosshair touch-none z-10"></canvas>
+                </div>
+
+                <!-- Current Character Detail -->
+                <div>
+                    <div id="writing-pinyin" class="text-xl font-bold text-brand-600 dark:text-brand-400">māo</div>
+                    <div id="writing-english" class="text-sm text-slate-500 dark:text-slate-400">Cat / Kitten</div>
+                </div>
+
+                <!-- Controls -->
+                <div class="flex items-center justify-center space-x-3 pt-2">
+                    <button onclick="clearCanvas()" class="px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-bold text-sm transition-all">
+                        <i class="fa-solid fa-eraser mr-1"></i> Clear Canvas
+                    </button>
+                    <button onclick="speakWord(currentWritingWord.hanzi)" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm shadow-md transition-all">
+                        <i class="fa-solid fa-volume-high mr-1"></i> Listen Pronunciation
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-6 text-center text-xs text-slate-400">
+        <p>Year 8 Chinese Vocabulary Learning System &bull; Designed for Middle School Language Curriculum</p>
+    </footer>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        /* ================= VOCABULARY DATABASE ================= */
+        const VOCABULARY = [
+            // UNIT 1: Zodiacs and Animals
+            { id: 'u1_1', unit: 1, unitTitle: 'Unit 1: Zodiacs & Animals', hanzi: '鼠', pinyin: 'shǔ', english: 'Mouse / Rat', emoji: '🐭', example: '老鼠喜欢吃花生。' },
+            { id: 'u1_2', unit: 1, unitTitle: 'Unit 1: Zodiacs & Animals', hanzi: '虎', pinyin: 'hǔ', english: 'Tiger', emoji: '🐯', example: '老虎是百兽之王。' },
+            { id: 'u1_3', unit: 1, unitTitle: 'Unit 1: Zodiacs & Animals', hanzi: '兔', pinyin: 'tù', english: 'Rabbit', emoji: '🐰', example: '白兔很可爱。' },
+            { id: 'u1_4', unit: 1, unitTitle: 'Unit 1: Zodiacs & Animals', hanzi: '龙', pinyin: 'lóng', english: 'Dragon', emoji: '🐲', example: '中国龙象征吉祥。' },
+            { id: 'u1_5', unit: 1, unitTitle: 'Unit 1: Zodiacs & Animals', hanzi: '蛇', pinyin: 'shé', english: 'Snake', emoji: '🐍', example: '蛇在草地里爬行。' },
+            { id: 'u1_6', unit: 1, unitTitle: 'Unit 1: Zodiacs & Animals', hanzi: '鱼', pinyin: 'yú', english: 'Fish', emoji: '🐟', example: '水里有很多鱼。' },
+            { id: 'u1_7', unit: 1, unitTitle: 'Unit 1: Zodiacs & Animals', hanzi: '马', pinyin: 'mǎ', english: 'Horse', emoji: '🐴', example: '他喜欢骑马。' },
+            { id: 'u1_8', unit: 1, unitTitle: 'Unit 1: Zodiacs & Animals', hanzi: '猴', pinyin: 'hóu', english: 'Monkey', emoji: '🐒', example: '猴子爱吃香蕉。' },
+            { id: 'u1_9', unit: 1, unitTitle: 'Unit 1: Zodiacs & Animals', hanzi: '鸡', pinyin: 'jī', english: 'Rooster / Chicken', emoji: '🐓', example: '公鸡早晨叫。' },
+            { id: 'u1_10', unit: 1, unitTitle: 'Unit 1: Zodiacs & Animals', hanzi: '熊猫', pinyin: 'xióng māo', english: 'Panda', emoji: '🐼', example: '大熊猫吃竹子。' },
+            { id: 'u1_11', unit: 1, unitTitle: 'Unit 1: Zodiacs & Animals', hanzi: '羊', pinyin: 'yáng', english: 'Goat / Sheep', emoji: '🐐', example: '山羊在山上吃草。' },
+
+            // UNIT 2: Time and Date
+            { id: 'u2_1', unit: 2, unitTitle: 'Unit 2: Time & Date', hanzi: '年', pinyin: 'nián', english: 'Year', emoji: '📅', example: '今年是二零二六年。' },
+            { id: 'u2_2', unit: 2, unitTitle: 'Unit 2: Time & Date', hanzi: '今天', pinyin: 'jīn tiān', english: 'Today', emoji: '☀️', example: '今天天气很好。' },
+            { id: 'u2_3', unit: 2, unitTitle: 'Unit 2: Time & Date', hanzi: '明天', pinyin: 'míng tiān', english: 'Tomorrow', emoji: '🌅', example: '明天我们要去学校。' },
+            { id: 'u2_4', unit: 2, unitTitle: 'Unit 2: Time & Date', hanzi: '月', pinyin: 'yuè', english: 'Month', emoji: '🌙', example: '一月是一年的开始。' },
+            { id: 'u2_5', unit: 2, unitTitle: 'Unit 2: Time & Date', hanzi: '星期', pinyin: 'xīng qī', english: 'Day of the week', emoji: '🗓️', example: '今天星期五。' },
+            { id: 'u2_6', unit: 2, unitTitle: 'Unit 2: Time & Date', hanzi: '生日', pinyin: 'shēng rì', english: 'Birthday', emoji: '🎂', example: '祝你生日快乐！' },
+            { id: 'u2_7', unit: 2, unitTitle: 'Unit 2: Time & Date', hanzi: '小时', pinyin: 'xiǎo shí', english: 'Hour', emoji: '⏰', example: '我看了一小时书。' },
+            { id: 'u2_8', unit: 2, unitTitle: 'Unit 2: Time & Date', hanzi: '分钟', pinyin: 'fēn zhōng', english: 'Minute', emoji: '⏱️', example: '请等我五分钟。' },
+            { id: 'u2_9', unit: 2, unitTitle: 'Unit 2: Time & Date', hanzi: '昨天', pinyin: 'zuó tiān', english: 'Yesterday', emoji: '🌧️', example: '昨天打雷了。' },
+            { id: 'u2_10', unit: 2, unitTitle: 'Unit 2: Time & Date', hanzi: '今年', pinyin: 'jīn nián', english: 'This Year', emoji: '📆', example: '今年我十四岁。' },
+            { id: 'u2_11', unit: 2, unitTitle: 'Unit 2: Time & Date', hanzi: '下个月', pinyin: 'xià gè yuè', english: 'Next month', emoji: '⏭️', example: '下个月是假期。' },
+
+            // UNIT 3: Body Parts
+            { id: 'u3_1', unit: 3, unitTitle: 'Unit 3: Body Parts', hanzi: '头', pinyin: 'tóu', english: 'Head', emoji: '🗣️', example: '请点点头。' },
+            { id: 'u3_2', unit: 3, unitTitle: 'Unit 3: Body Parts', hanzi: '头发', pinyin: 'tóu fa', english: 'Hair', emoji: '💇', example: '她的头发很长。' },
+            { id: 'u3_3', unit: 3, unitTitle: 'Unit 3: Body Parts', hanzi: '鼻子', pinyin: 'bí zi', english: 'Nose', emoji: '👃', example: '大象的鼻子长。' },
+            { id: 'u3_4', unit: 3, unitTitle: 'Unit 3: Body Parts', hanzi: '嘴巴', pinyin: 'zuǐ ba', english: 'Mouth', emoji: '👄', example: '张开嘴巴说。' },
+            { id: 'u3_5', unit: 3, unitTitle: 'Unit 3: Body Parts', hanzi: '肚子', pinyin: 'dù zi', english: 'Belly / Stomach', emoji: '🤰', example: '我肚子饿了。' },
+            { id: 'u3_6', unit: 3, unitTitle: 'Unit 3: Body Parts', hanzi: '脚', pinyin: 'jiǎo', english: 'Foot', emoji: '🦶', example: '我的脚受伤了。' },
+            { id: 'u3_7', unit: 3, unitTitle: 'Unit 3: Body Parts', hanzi: '大 / 小', pinyin: 'dà / xiǎo', english: 'Big / Small', emoji: '🐘', example: '大象大，老鼠小。' },
+            { id: 'u3_8', unit: 3, unitTitle: 'Unit 3: Body Parts', hanzi: '高 / 矮', pinyin: 'gāo / ǎi', english: 'Tall / Short', emoji: '🦒', example: '长颈鹿很高。' },
+            { id: 'u3_9', unit: 3, unitTitle: 'Unit 3: Body Parts', hanzi: '胖 / 瘦', pinyin: 'pàng / shòu', english: 'Fat / Skinny', emoji: '⚖️', example: '保持身体健康。' },
+            { id: 'u3_10', unit: 3, unitTitle: 'Unit 3: Body Parts', hanzi: '长', pinyin: 'cháng', english: 'Long', emoji: '📏', example: '这条路很长。' },
+            { id: 'u3_11', unit: 3, unitTitle: 'Unit 3: Body Parts', hanzi: '腿', pinyin: 'tuǐ', english: 'Leg', emoji: '🦵', example: '跑步鍛鍊双腿。' },
+
+            // UNIT 4: House & Directions
+            { id: 'u4_1', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '房子', pinyin: 'fáng zi', english: 'House', emoji: '🏠', example: '我家是一栋大房子。' },
+            { id: 'u4_2', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '楼', pinyin: 'lóu', english: 'Floor / Building', emoji: '🏢', example: '我住在三楼。' },
+            { id: 'u4_3', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '卧室', pinyin: 'wò shì', english: 'Bedroom', emoji: '🛏️', example: '卧室很干净。' },
+            { id: 'u4_4', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '厨房', pinyin: 'chú fáng', english: 'Kitchen', emoji: '🍳', example: '妈妈在厨房做饭。' },
+            { id: 'u4_5', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '客厅', pinyin: 'kè tīng', english: 'Living Room', emoji: '🛋️', example: '客厅有一台电视。' },
+            { id: 'u4_6', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '厕所', pinyin: 'cè suǒ', english: 'Toilet', emoji: '🚽', example: '洗手间在左边。' },
+            { id: 'u4_7', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '浴室', pinyin: 'yù shì', english: 'Bath / Bathroom', emoji: '🛁', example: '浴室洗澡很舒服。' },
+            { id: 'u4_8', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '车库', pinyin: 'chē kù', english: 'Garage', emoji: '🚗', example: '汽车停在车库里。' },
+            { id: 'u4_9', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '书房', pinyin: 'shū fáng', english: 'Study', emoji: '📚', example: '我在书房看书。' },
+            { id: 'u4_10', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '游泳池', pinyin: 'yóu yǒng chí', english: 'Swimming pool', emoji: '🏊', example: '夏天在游泳池游泳。' },
+            { id: 'u4_11', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '洗衣房', pinyin: 'xǐ yī fáng', english: 'Laundry', emoji: '🧺', example: '洗衣房有洗衣机。' },
+            { id: 'u4_12', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '前', pinyin: 'qián', english: 'Front', emoji: '⬆️', example: '往前走。' },
+            { id: 'u4_13', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '后', pinyin: 'hòu', english: 'Back', emoji: '⬇️', example: '门在后面。' },
+            { id: 'u4_14', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '左', pinyin: 'zuǒ', english: 'Left', emoji: '⬅️', example: '向左转。' },
+            { id: 'u4_15', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '右', pinyin: 'yòu', english: 'Right', emoji: '➡️', example: '向右边看。' },
+            { id: 'u4_16', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '下', pinyin: 'xià', english: 'Down', emoji: '👇', example: '走下楼梯。' },
+            { id: 'u4_17', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '中', pinyin: 'zhōng', english: 'Middle', emoji: '🎯', example: '站在中间。' },
+            { id: 'u4_18', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '在', pinyin: 'zài', english: 'Located at', emoji: '📍', example: '学校在公园附近。' },
+            { id: 'u4_19', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '东', pinyin: 'dōng', english: 'East', emoji: '🧩', example: '太阳从东方升起。' },
+            { id: 'u4_20', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '南', pinyin: 'nán', english: 'South', emoji: '🧭', example: '澳大利亚在南方。' },
+            { id: 'u4_21', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '北', pinyin: 'běi', english: 'North', emoji: '❄️', example: '北方冬天很冷。' },
+            { id: 'u4_22', unit: 4, unitTitle: 'Unit 4: House & Directions', hanzi: '西', pinyin: 'xī', english: 'West', emoji: '🌇', example: '太阳在西方落下。' },
+
+            // UNIT 5: Colours
+            { id: 'u5_1', unit: 5, unitTitle: 'Unit 5: Colours', hanzi: '黄色', pinyin: 'huáng sè', english: 'Yellow', emoji: '💛', example: '香蕉是黄色的。' },
+            { id: 'u5_2', unit: 5, unitTitle: 'Unit 5: Colours', hanzi: '青色', pinyin: 'qīng sè', english: 'Cyan', emoji: '🩵', example: '青青的草地。' },
+            { id: 'u5_3', unit: 5, unitTitle: 'Unit 5: Colours', hanzi: '紫色', pinyin: 'zǐ sè', english: 'Purple', emoji: '💜', example: '葡萄是紫色的。' },
+            { id: 'u5_4', unit: 5, unitTitle: 'Unit 5: Colours', hanzi: '黑色', pinyin: 'hēi sè', english: 'Black', emoji: '🖤', example: '黑色的头发。' },
+            { id: 'u5_5', unit: 5, unitTitle: 'Unit 5: Colours', hanzi: '咖啡色 / 棕色', pinyin: 'kā fēi sè', english: 'Brown / Coffee colour', emoji: '🤎', example: '咖啡色的皮鞋。' },
+            { id: 'u5_6', unit: 5, unitTitle: 'Unit 5: Colours', hanzi: '橙色', pinyin: 'chéng sè', english: 'Orange', emoji: '🧡', example: '橙色的果汁。' },
+            { id: 'u5_7', unit: 5, unitTitle: 'Unit 5: Colours', hanzi: '绿色', pinyin: 'lǜ sè', english: 'Green', emoji: '💚', example: '树叶是绿色的。' },
+            { id: 'u5_8', unit: 5, unitTitle: 'Unit 5: Colours', hanzi: '粉红色', pinyin: 'fěn hóng sè', english: 'Pink', emoji: '🩷', example: '粉红色的花朵。' },
+            { id: 'u5_9', unit: 5, unitTitle: 'Unit 5: Colours', hanzi: '白色', pinyin: 'bái sè', english: 'White', emoji: '🤍', example: '白色的云朵。' },
+            { id: 'u5_10', unit: 5, unitTitle: 'Unit 5: Colours', hanzi: '灰色', pinyin: 'huī sè', english: 'Grey', emoji: '🩶', example: '灰色的兔子。' },
+            { id: 'u5_11', unit: 5, unitTitle: 'Unit 5: Colours', hanzi: '彩色', pinyin: 'cǎi sè', english: 'Full / Multi-colour', emoji: '🌈', example: '彩虹是彩色的。' },
+
+            // UNIT 6: Money & Shopping
+            { id: 'u6_1', unit: 6, unitTitle: 'Unit 6: Money & Shopping', hanzi: '钱', pinyin: 'qián', english: 'Money', emoji: '💰', example: '买东西需要人民币。' },
+            { id: 'u6_2', unit: 6, unitTitle: 'Unit 6: Money & Shopping', hanzi: '一角 / 一毛', pinyin: 'yī jiǎo / yī máo', english: '0.10 (Dime/Jiao)', emoji: '🪙', example: '一角等于十分。' },
+            { id: 'u6_3', unit: 6, unitTitle: 'Unit 6: Money & Shopping', hanzi: '人', pinyin: 'rén', english: 'Peoples / Person', emoji: '👥', example: '超市里有很多人。' },
+            { id: 'u6_4', unit: 6, unitTitle: 'Unit 6: Money & Shopping', hanzi: '太贵了', pinyin: 'tài guì le', english: 'Too expensive', emoji: '💸', example: '这件衣服太贵了。' },
+            { id: 'u6_5', unit: 6, unitTitle: 'Unit 6: Money & Shopping', hanzi: '便宜一点', pinyin: 'pián yi yī diǎn', english: 'Make it cheaper', emoji: '🏷️', example: '能便宜一点吗？' },
+            { id: 'u6_6', unit: 6, unitTitle: 'Unit 6: Money & Shopping', hanzi: '多少钱', pinyin: 'duō shǎo qián', english: 'How much', emoji: '❓', example: '这个苹果多少钱？' },
+
+            // UNIT 7: Fruit & Vegetables
+            { id: 'u7_1', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '果汁', pinyin: 'guǒ zhī', english: 'Fruit Juice', emoji: '🧃', example: '我喜欢喝橙汁。' },
+            { id: 'u7_2', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '香蕉', pinyin: 'xiāng jiāo', english: 'Banana', emoji: '🍌', example: '香蕉甜甜的。' },
+            { id: 'u7_3', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '草莓', pinyin: 'cǎo méi', english: 'Strawberry', emoji: '🍓', example: '草莓是红色的。' },
+            { id: 'u7_4', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '蓝葡萄', pinyin: 'lán pú tao', english: 'Blue Grapes', emoji: '🍇', example: '新鲜的蓝葡萄。' },
+            { id: 'u7_5', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '苹果', pinyin: 'píng guǒ', english: 'Apple', emoji: '🍎', example: '一天一苹果，医生远离我。' },
+            { id: 'u7_6', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '橙子', pinyin: 'chéng zi', english: 'Orange (Fruit)', emoji: '🍊', example: '橙子有很多维生素C。' },
+            { id: 'u7_7', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '梨', pinyin: 'lí', english: 'Pear', emoji: '🍐', example: '梨水分很多。' },
+            { id: 'u7_8', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '西瓜', pinyin: 'xī guā', english: 'Watermelon', emoji: '🍉', example: '夏天吃西瓜解暑。' },
+            { id: 'u7_9', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '柠檬', pinyin: 'níng méng', english: 'Lemon', emoji: '🍋', example: '柠檬水酸酸的。' },
+            { id: 'u7_10', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '桔子 / 橘子', pinyin: 'jú zi', english: 'Mandarin', emoji: '🍊', example: '桔子很甜。' },
+            { id: 'u7_11', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '菠萝', pinyin: 'bō luó', english: 'Pineapple', emoji: '🍍', example: '菠萝香气扑鼻。' },
+            { id: 'u7_12', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '卷心菜', pinyin: 'juǎn xīn cài', english: 'Cabbage', emoji: '🥬', example: '炒卷心菜美味。' },
+            { id: 'u7_13', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '青菜', pinyin: 'qīng cài', english: 'Green vegetables', emoji: '🥗', example: '多吃青菜健康。' },
+            { id: 'u7_14', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '胡萝卜', pinyin: 'hú luó bo', english: 'Carrot', emoji: '🥕', example: '兔子爱吃胡萝卜。' },
+            { id: 'u7_15', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '黄瓜', pinyin: 'huáng guā', english: 'Cucumber', emoji: '🥒', example: '黄瓜脆清爽。' },
+            { id: 'u7_16', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '番茄 / 西红柿', pinyin: 'fān qié', english: 'Tomato', emoji: '🍅', example: '番茄炒蛋。' },
+            { id: 'u7_17', unit: 7, unitTitle: 'Unit 7: Fruit & Vegetables', hanzi: '生菜', pinyin: 'shēng cài', english: 'Lettuce', emoji: '🥬', example: '做沙拉用生菜。' },
+
+            // UNIT 8: Sports & Hobbies
+            { id: 'u8_1', unit: 8, unitTitle: 'Unit 8: Sports & Hobbies', hanzi: '最喜欢', pinyin: 'zuì xǐ huan', english: 'My favourite', emoji: '❤️', example: '我最喜欢打篮球。' },
+            { id: 'u8_2', unit: 8, unitTitle: 'Unit 8: Sports & Hobbies', hanzi: '短跑', pinyin: 'duǎn pǎo', english: 'Sprinting', emoji: '🏃', example: '他是短跑冠军。' },
+            { id: 'u8_3', unit: 8, unitTitle: 'Unit 8: Sports & Hobbies', hanzi: '打乒乓球', pinyin: 'dǎ pīng pāng qiú', english: 'Play Ping Pong', emoji: '🏓', example: '中国乒乓球很厉害。' },
+            { id: 'u8_4', unit: 8, unitTitle: 'Unit 8: Sports & Hobbies', hanzi: '打排球', pinyin: 'dǎ pái qiú', english: 'Play Volleyball', emoji: '🏐', example: '周末我们打排球。' },
+            { id: 'u8_5', unit: 8, unitTitle: 'Unit 8: Sports & Hobbies', hanzi: '羽毛球', pinyin: 'yǔ máo qiú', english: 'Badminton', emoji: '🏸', example: '打羽毛球需要灵敏。' },
+            { id: 'u8_6', unit: 8, unitTitle: 'Unit 8: Sports & Hobbies', hanzi: '游泳', pinyin: 'yóu yǒng', english: 'Swimming', emoji: '🏊', example: '游泳是一项好运动。' },
+            { id: 'u8_7', unit: 8, unitTitle: 'Unit 8: Sports & Hobbies', hanzi: '运动员', pinyin: 'yùn dòng yuán', english: 'Sport Player / Athlete', emoji: '🥇', example: '他是一名职业运动员。' },
+            { id: 'u8_8', unit: 8, unitTitle: 'Unit 8: Sports & Hobbies', hanzi: '打篮球', pinyin: 'dǎ lán qiú', english: 'Play basketball', emoji: '🏀', example: '放学后打篮球。' },
+            { id: 'u8_9', unit: 8, unitTitle: 'Unit 8: Sports & Hobbies', hanzi: '扔沙包', pinyin: 'rēng shā bāo', english: 'Throw sandbag', emoji: '🎯', example: '小时候玩扔沙包。' },
+            { id: 'u8_10', unit: 8, unitTitle: 'Unit 8: Sports & Hobbies', hanzi: '放风筝', pinyin: 'fàng fēng zheng', english: 'Fly the kite', emoji: '🪁', example: '春天去公园放风筝。' },
+            { id: 'u8_11', unit: 8, unitTitle: 'Unit 8: Sports & Hobbies', hanzi: '拔河', pinyin: 'bá hé', english: 'Tug of war', emoji: '🪢', example: '运动会有拔河比赛。' }
+        ];
+
+        /* ================= APP STATE ================= */
+        let state = {
+            activeTab: 'dashboard',
+            starredIds: JSON.parse(localStorage.getItem('y8_starred_ids') || '[]'),
+            masteredIds: JSON.parse(localStorage.getItem('y8_mastered_ids') || '[]'),
+            bestQuizScore: parseInt(localStorage.getItem('y8_quiz_score') || '0'),
+            // Flashcard State
+            fcList: [],
+            fcIndex: 0,
+            fcFlipped: false,
+            // Quiz State
+            quizQuestions: [],
+            quizIndex: 0,
+            quizScore: 0,
+            quizSelectedOption: null,
+            // Match Game State
+            matchCards: [],
+            matchSelected: [],
+            matchPairsFound: 0,
+            matchTimerInterval: null,
+            matchTimeSeconds: 0,
+            // Writing State
+            currentWritingWord: null
+        };
+
+        /* ================= INIT & NAVIGATION ================= */
+        window.onload = function() {
+            initTheme();
+            renderDashboard();
+            setupWritingCanvas();
+            updateGlobalStats();
+            populateUnitDropdowns();
+            // Init Writing word
+            currentWritingWord = VOCABULARY[0];
+            setWritingWord(currentWritingWord);
+        };
+
+        function switchTab(tabId) {
+            state.activeTab = tabId;
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById(`tab-${tabId}`);
+            if (target) target.classList.remove('hidden');
+
+            // Update Nav buttons styling
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.className = 'nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 transition-all';
+            });
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.className = 'nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/40';
+            }
+
+            // Close Mobile menu
+            document.getElementById('mobile-menu').classList.add('hidden');
+
+            // Tab specific triggers
+            if (tabId === 'flashcards') initFlashcards();
+            if (tabId === 'dictionary') renderDictionary();
+            if (tabId === 'match') initMatchGame();
+            if (tabId === 'dashboard') updateGlobalStats();
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('y8_theme', isDark ? 'dark' : 'light');
+        }
+
+        function initTheme() {
+            const saved = localStorage.getItem('y8_theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            }
+        }
+
+        function updateGlobalStats() {
+            document.getElementById('stat-total-words').innerText = VOCABULARY.length;
+            document.getElementById('stat-mastered').innerText = state.masteredIds.length;
+            document.getElementById('stat-starred').innerText = state.starredIds.length;
+            document.getElementById('stat-quiz-score').innerText = `${state.bestQuizScore}%`;
+        }
+
+        function populateUnitDropdowns() {
+            const units = Array.from(new Set(VOCABULARY.map(v => v.unit)));
+            const options = units.map(u => {
+                const uObj = VOCABULARY.find(v => v.unit === u);
+                return `<option value="${u}">${uObj.unitTitle}</option>`;
+            }).join('');
+
+            const fcSelect = document.getElementById('flashcard-unit-select');
+            const quizSelect = document.getElementById('quiz-unit-select');
+            const matchSelect = document.getElementById('match-unit-select');
+
+            fcSelect.innerHTML = `<option value="all">All 8 Units (${VOCABULARY.length} Words)</option>` + options;
+            quizSelect.innerHTML = `<option value="all">All 8 Units Combined</option>` + options;
+            matchSelect.innerHTML = `<option value="all">All 8 Units</option>` + options;
+        }
+
+        /* ================= AUDIO SYNTHESIZER ================= */
+        function speakWord(text) {
+            if (!('speechSynthesis' in window)) {
+                console.warn('Speech synthesis not supported');
+                return;
+            }
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.85; // slightly slower for clear learning
+            window.speechSynthesis.speak(utterance);
+        }
+
+        /* ================= DASHBOARD RENDER ================= */
+        function renderDashboard() {
+            const units = [
+                { id: 1, title: 'Unit 1: Zodiacs & Animals', count: 11, icon: '🐮', color: 'from-amber-500 to-orange-500' },
+                { id: 2, title: 'Unit 2: Time & Date', count: 11, icon: '⏰', color: 'from-blue-500 to-cyan-500' },
+                { id: 3, title: 'Unit 3: Body Parts', count: 11, icon: '👁️', color: 'from-pink-500 to-rose-500' },
+                { id: 4, title: 'Unit 4: House & Directions', count: 22, icon: '🏡', color: 'from-emerald-500 to-teal-500' },
+                { id: 5, title: 'Unit 5: Colours', count: 11, icon: '🎨', color: 'from-purple-500 to-indigo-500' },
+                { id: 6, title: 'Unit 6: Money & Shopping', count: 6, icon: '🛍️', color: 'from-yellow-500 to-amber-600' },
+                { id: 7, title: 'Unit 7: Fruit & Vegetables', count: 17, icon: '🍎', color: 'from-red-500 to-brand-600' },
+                { id: 8, title: 'Unit 8: Sports & Hobbies', count: 11, icon: '🏀', color: 'from-indigo-600 to-blue-600' }
+            ];
+
+            const container = document.getElementById('units-grid');
+            container.innerHTML = units.map(u => {
+                const masteredInUnit = VOCABULARY.filter(v => v.unit === u.id && state.masteredIds.includes(v.id)).length;
+                const percent = Math.round((masteredInUnit / u.count) * 100);
+
+                return `
+                <div onclick="startUnitStudy(${u.id})" class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr ${u.color} text-white text-xl flex items-center justify-center shadow-md">
+                                ${u.icon}
+                            </div>
+                            <span class="text-xs font-bold px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded-lg text-slate-600 dark:text-slate-300">
+                                ${u.count} Words
+                            </span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">${u.title}</h4>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700/60">
+                        <div class="flex justify-between items-center text-xs text-slate-500 mb-1">
+                            <span>Mastery</span>
+                            <span class="font-bold">${percent}%</span>
+                        </div>
+                        <div class="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-emerald-500 h-full rounded-full transition-all duration-300" style="width: ${percent}%"></div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function startUnitStudy(unitId) {
+            document.getElementById('flashcard-unit-select').value = unitId;
+            switchTab('flashcards');
+        }
+
+        /* ================= FLASHCARDS SYSTEM ================= */
+        function initFlashcards() {
+            const unitVal = document.getElementById('flashcard-unit-select').value;
+            if (unitVal === 'all') {
+                state.fcList = [...VOCABULARY];
+            } else {
+                state.fcList = VOCABULARY.filter(v => v.unit === parseInt(unitVal));
+            }
+            state.fcIndex = 0;
+            state.fcFlipped = false;
+            renderFlashcard();
+        }
+
+        function renderFlashcard() {
+            if (state.fcList.length === 0) return;
+            const current = state.fcList[state.fcIndex];
+
+            // Reset Flip
+            const inner = document.getElementById('flashcard-inner');
+            inner.classList.remove('rotate-y-180');
+            state.fcFlipped = false;
+
+            // Content
+            document.getElementById('fc-unit-tag').innerText = `Unit ${current.unit}`;
+            document.getElementById('fc-emoji').innerText = current.emoji;
+            document.getElementById('fc-hanzi').innerText = current.hanzi;
+            document.getElementById('fc-pinyin').innerText = current.pinyin;
+            document.getElementById('fc-english').innerText = current.english;
+            document.getElementById('fc-pinyin-back').innerText = current.pinyin;
+            document.getElementById('fc-example').innerText = `"${current.example}"`;
+
+            // Star state
+            const starBtn = document.getElementById('fc-star-btn');
+            if (state.starredIds.includes(current.id)) {
+                starBtn.className = 'text-amber-400 text-xl transition-colors';
+            } else {
+                starBtn.className = 'text-slate-300 hover:text-amber-400 text-xl transition-colors';
+            }
+
+            // Counter & Progress
+            document.getElementById('fc-counter').innerText = `Card ${state.fcIndex + 1} of ${state.fcList.length}`;
+            const masteredInList = state.fcList.filter(v => state.masteredIds.includes(v.id)).length;
+            document.getElementById('fc-mastered-count').innerHTML = `<i class="fa-solid fa-check"></i> ${masteredInList} Mastered`;
+
+            const progressPct = Math.round(((state.fcIndex + 1) / state.fcList.length) * 100);
+            document.getElementById('fc-progress-bar').style.width = `${progressPct}%`;
+        }
+
+        function flipCard() {
+            const inner = document.getElementById('flashcard-inner');
+            inner.classList.toggle('rotate-y-180');
+            state.fcFlipped = !state.fcFlipped;
+            if (state.fcFlipped) {
+                speakCurrentCard();
+            }
+        }
+
+        function prevCard() {
+            if (state.fcIndex > 0) {
+                state.fcIndex--;
+                renderFlashcard();
+            }
+        }
+
+        function nextCard() {
+            if (state.fcIndex < state.fcList.length - 1) {
+                state.fcIndex++;
+                renderFlashcard();
+            }
+        }
+
+        function shuffleFlashcards() {
+            for (let i = state.fcList.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [state.fcList[i], state.fcList[j]] = [state.fcList[j], state.fcList[i]];
+            }
+            state.fcIndex = 0;
+            renderFlashcard();
+        }
+
+        function speakCurrentCard() {
+            if (state.fcList.length > 0) {
+                speakWord(state.fcList[state.fcIndex].hanzi);
+            }
+        }
+
+        function toggleStarCurrentCard() {
+            const current = state.fcList[state.fcIndex];
+            const idx = state.starredIds.indexOf(current.id);
+            if (idx > -1) {
+                state.starredIds.splice(idx, 1);
+            } else {
+                state.starredIds.push(current.id);
+            }
+            localStorage.setItem('y8_starred_ids', JSON.stringify(state.starredIds));
+            renderFlashcard();
+        }
+
+        function markCardStatus(mastered) {
+            const current = state.fcList[state.fcIndex];
+            const idx = state.masteredIds.indexOf(current.id);
+
+            if (mastered && idx === -1) {
+                state.masteredIds.push(current.id);
+            } else if (!mastered && idx > -1) {
+                state.masteredIds.splice(idx, 1);
+            }
+            localStorage.setItem('y8_mastered_ids', JSON.stringify(state.masteredIds));
+
+            nextCard();
+        }
+
+        function resetFlashcardsProgress() {
+            state.masteredIds = [];
+            localStorage.setItem('y8_mastered_ids', JSON.stringify([]));
+            renderFlashcard();
+        }
+
+        /* ================= DICTIONARY TAB ================= */
+        let currentDictUnitFilter = 'all';
+
+        function renderDictionary() {
+            const query = document.getElementById('dict-search-input').value.toLowerCase().trim();
+            const grid = document.getElementById('dict-grid');
+            const filterContainer = document.getElementById('dict-unit-filter');
+
+            // Render Filter Chips if empty
+            if (filterContainer.children.length === 0) {
+                let html = `<button onclick="setDictUnitFilter('all')" id="dict-chip-all" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-brand-600 text-white whitespace-nowrap">All Units</button>`;
+                for (let i = 1; i <= 8; i++) {
+                    html += `<button onclick="setDictUnitFilter(${i})" id="dict-chip-${i}" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 whitespace-nowrap">Unit ${i}</button>`;
+                }
+                filterContainer.innerHTML = html;
+            }
+
+            // Filter logic
+            const filtered = VOCABULARY.filter(item => {
+                const matchesUnit = currentDictUnitFilter === 'all' || item.unit === currentDictUnitFilter;
+                const matchesQuery = item.hanzi.toLowerCase().includes(query) ||
+                                     item.pinyin.toLowerCase().includes(query) ||
+                                     item.english.toLowerCase().includes(query);
+                return matchesUnit && matchesQuery;
+            });
+
+            document.getElementById('dict-results-count').innerText = `Showing ${filtered.length} of ${VOCABULARY.length} words`;
+
+            grid.innerHTML = filtered.map(item => {
+                const isMastered = state.masteredIds.includes(item.id);
+                const isStarred = state.starredIds.includes(item.id);
+
+                return `
+                <div onclick="speakWord('${item.hanzi}')" class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-brand-300 dark:hover:border-brand-700 transition-all cursor-pointer group flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="text-3xl">${item.emoji}</div>
+                        <div>
+                            <div class="flex items-baseline space-x-2">
+                                <span class="font-bold font-chinese text-xl text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">${item.hanzi}</span>
+                                <span class="text-xs font-semibold text-brand-600 dark:text-brand-400">${item.pinyin}</span>
+                            </div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">${item.english}</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        ${isMastered ? '<span class="text-emerald-500 text-xs" title="Mastered"><i class="fa-solid fa-circle-check"></i></span>' : ''}
+                        ${isStarred ? '<span class="text-amber-400 text-xs" title="Starred"><i class="fa-solid fa-star"></i></span>' : ''}
+                        <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 group-hover:bg-brand-100 dark:group-hover:bg-brand-900 text-slate-500 dark:text-slate-400 group-hover:text-brand-600 dark:group-hover:text-brand-300 flex items-center justify-center text-xs transition-colors">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function setDictUnitFilter(unit) {
+            currentDictUnitFilter = unit;
+            // Update Chip UI
+            document.querySelectorAll('#dict-unit-filter button').forEach(b => {
+                b.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 whitespace-nowrap";
+            });
+            const targetBtn = document.getElementById(`dict-chip-${unit}`);
+            if (targetBtn) {
+                targetBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-brand-600 text-white whitespace-nowrap";
+            }
+            renderDictionary();
+        }
+
+        /* ================= QUIZ MODE ================= */
+        function startQuiz() {
+            const unitVal = document.getElementById('quiz-unit-select').value;
+            const lengthVal = parseInt(document.getElementById('quiz-length-select').value);
+
+            let pool = unitVal === 'all' ? [...VOCABULARY] : VOCABULARY.filter(v => v.unit === parseInt(unitVal));
+            // Shuffle pool
+            pool = pool.sort(() => 0.5 - Math.random());
+
+            state.quizQuestions = pool.slice(0, Math.min(lengthVal, pool.length));
+            state.quizIndex = 0;
+            state.quizScore = 0;
+
+            document.getElementById('quiz-start-box').classList.add('hidden');
+            document.getElementById('quiz-result-box').classList.add('hidden');
+            document.getElementById('quiz-active-box').classList.remove('hidden');
+
+            renderQuizQuestion();
+        }
+
+        function renderQuizQuestion() {
+            const q = state.quizQuestions[state.quizIndex];
+            state.quizSelectedOption = null;
+
+            // UI Elements
+            document.getElementById('quiz-progress-text').innerText = `Question ${state.quizIndex + 1} of ${state.quizQuestions.length}`;
+            document.getElementById('quiz-score-badge').innerText = `Score: ${state.quizScore}`;
+            document.getElementById('quiz-progress-bar').style.width = `${((state.quizIndex) / state.quizQuestions.length) * 100}%`;
+
+            document.getElementById('quiz-prompt-emoji').innerText = q.emoji;
+            document.getElementById('quiz-prompt-text').innerText = q.hanzi;
+            document.getElementById('quiz-prompt-sub').innerText = `Pinyin: [ ${q.pinyin} ] - Select the correct English meaning:`;
+
+            // Generate 4 options
+            const wrongOptions = VOCABULARY.filter(v => v.id !== q.id).sort(() => 0.5 - Math.random()).slice(0, 3);
+            const options = [q, ...wrongOptions].sort(() => 0.5 - Math.random());
+
+            const optionsGrid = document.getElementById('quiz-options-grid');
+            optionsGrid.innerHTML = options.map((opt, i) => `
+                <button onclick="selectQuizOption(this, ${opt.id === q.id})" class="quiz-opt-btn p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/50 hover:bg-brand-50 dark:hover:bg-brand-950/30 hover:border-brand-300 text-left font-semibold text-sm text-slate-800 dark:text-slate-200 transition-all flex items-center justify-between">
+                    <span>${opt.english}</span>
+                    <span class="w-6 h-6 rounded-full border border-slate-300 dark:border-slate-600 flex items-center justify-center text-xs text-slate-400 font-mono">${String.fromCharCode(65 + i)}</span>
+                </button>
+            `).join('');
+
+            document.getElementById('quiz-feedback').classList.add('hidden');
+        }
+
+        function selectQuizOption(btn, isCorrect) {
+            if (state.quizSelectedOption !== null) return; // Prevent double clicking
+            state.quizSelectedOption = isCorrect;
+
+            const buttons = document.querySelectorAll('.quiz-opt-btn');
+            buttons.forEach(b => b.classList.add('opacity-50', 'pointer-events-none'));
+
+            btn.classList.remove('opacity-50');
+
+            const feedback = document.getElementById('quiz-feedback');
+            const feedbackText = document.getElementById('quiz-feedback-text');
+
+            if (isCorrect) {
+                state.quizScore += 10;
+                btn.className = "p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 text-left font-bold text-sm text-emerald-700 dark:text-emerald-300 transition-all flex items-center justify-between";
+                feedback.className = "p-4 rounded-xl text-center space-y-3 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800";
+                feedbackText.innerHTML = `<span class="text-emerald-600 dark:text-emerald-400"><i class="fa-solid fa-circle-check mr-1"></i> Correct! Excellent job.</span>`;
+            } else {
+                btn.className = "p-4 rounded-xl border-2 border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-left font-bold text-sm text-rose-700 dark:text-rose-300 transition-all flex items-center justify-between";
+                feedback.className = "p-4 rounded-xl text-center space-y-3 bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800";
+                const q = state.quizQuestions[state.quizIndex];
+                feedbackText.innerHTML = `<span class="text-rose-600 dark:text-rose-400"><i class="fa-solid fa-circle-xmark mr-1"></i> Incorrect. Correct answer: <strong>${q.english}</strong></span>`;
+            }
+
+            feedback.classList.remove('hidden');
+        }
+
+        function nextQuizQuestion() {
+            state.quizIndex++;
+            if (state.quizIndex < state.quizQuestions.length) {
+                renderQuizQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            document.getElementById('quiz-active-box').classList.add('hidden');
+            document.getElementById('quiz-result-box').classList.remove('hidden');
+
+            const maxScore = state.quizQuestions.length * 10;
+            const percentage = Math.round((state.quizScore / maxScore) * 100);
+
+            document.getElementById('quiz-final-score').innerText = `${percentage}%`;
+            document.getElementById('quiz-final-detail').innerText = `${state.quizScore / 10} of ${state.quizQuestions.length} Questions Correct`;
+
+            if (percentage > state.bestQuizScore) {
+                state.bestQuizScore = percentage;
+                localStorage.setItem('y8_quiz_score', percentage.toString());
+            }
+
+            if (percentage >= 80) {
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            }
+        }
+
+        /* ================= MATCH GAME ================= */
+        function initMatchGame() {
+            const unitVal = document.getElementById('match-unit-select').value;
+            let pool = unitVal === 'all' ? [...VOCABULARY] : VOCABULARY.filter(v => v.unit === parseInt(unitVal));
+            pool = pool.sort(() => 0.5 - Math.random()).slice(0, 6); // Pick 6 pairs
+
+            let cards = [];
+            pool.forEach(item => {
+                cards.push({ pairId: item.id, type: 'hanzi', content: item.hanzi, sub: item.pinyin, emoji: item.emoji });
+                cards.push({ pairId: item.id, type: 'english', content: item.english, sub: 'English', emoji: '✨' });
+            });
+
+            state.matchCards = cards.sort(() => 0.5 - Math.random());
+            state.matchSelected = [];
+            state.matchPairsFound = 0;
+            state.matchTimeSeconds = 0;
+
+            // Timer reset
+            if (state.matchTimerInterval) clearInterval(state.matchTimerInterval);
+            state.matchTimerInterval = setInterval(() => {
+                state.matchTimeSeconds++;
+                const mins = String(Math.floor(state.matchTimeSeconds / 60)).padStart(2, '0');
+                const secs = String(state.matchTimeSeconds % 60).padStart(2, '0');
+                document.getElementById('match-timer').innerText = `${mins}:${secs}`;
+            }, 1000);
+
+            document.getElementById('match-score').innerText = `0 / 6`;
+            renderMatchGrid();
+        }
+
+        function renderMatchGrid() {
+            const grid = document.getElementById('match-grid');
+            grid.innerHTML = state.matchCards.map((card, index) => `
+                <div onclick="selectMatchCard(${index})" id="match-card-${index}" class="h-28 sm:h-32 bg-white dark:bg-slate-800 rounded-2xl border-2 border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-brand-400 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center select-none">
+                    <div class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white ${card.type === 'hanzi' ? 'font-chinese text-2xl sm:text-3xl' : ''}">${card.content}</div>
+                    <div class="text-xs font-semibold text-brand-600 dark:text-brand-400 mt-1">${card.sub}</div>
+                </div>
+            `).join('');
+        }
+
+        function selectMatchCard(index) {
+            const cardEl = document.getElementById(`match-card-${index}`);
+            if (cardEl.classList.contains('matched') || state.matchSelected.includes(index)) return;
+
+            // Highlight selected
+            cardEl.classList.add('border-brand-500', 'bg-brand-50', 'dark:bg-brand-950/40');
+            state.matchSelected.push(index);
+
+            if (state.matchSelected.length === 2) {
+                const idx1 = state.matchSelected[0];
+                const idx2 = state.matchSelected[1];
+                const card1 = state.matchCards[idx1];
+                const card2 = state.matchCards[idx2];
+
+                if (card1.pairId === card2.pairId && card1.type !== card2.type) {
+                    // MATCH SUCCESS
+                    setTimeout(() => {
+                        document.getElementById(`match-card-${idx1}`).className = "h-28 sm:h-32 bg-emerald-50 dark:bg-emerald-950/30 rounded-2xl border-2 border-emerald-500 shadow-sm flex flex-col items-center justify-center p-3 text-center opacity-40 matched cursor-default pointer-events-none";
+                        document.getElementById(`match-card-${idx2}`).className = "h-28 sm:h-32 bg-emerald-50 dark:bg-emerald-950/30 rounded-2xl border-2 border-emerald-500 shadow-sm flex flex-col items-center justify-center p-3 text-center opacity-40 matched cursor-default pointer-events-none";
+
+                        state.matchPairsFound++;
+                        document.getElementById('match-score').innerText = `${state.matchPairsFound} / 6`;
+
+                        if (state.matchPairsFound === 6) {
+                            clearInterval(state.matchTimerInterval);
+                            confetti({ particleCount: 80, spread: 60 });
+                        }
+                    }, 300);
+                } else {
+                    // MISMATCH
+                    setTimeout(() => {
+                        document.getElementById(`match-card-${idx1}`).className = "h-28 sm:h-32 bg-white dark:bg-slate-800 rounded-2xl border-2 border-rose-500 shadow-sm flex flex-col items-center justify-center p-3 text-center";
+                        document.getElementById(`match-card-${idx2}`).className = "h-28 sm:h-32 bg-white dark:bg-slate-800 rounded-2xl border-2 border-rose-500 shadow-sm flex flex-col items-center justify-center p-3 text-center";
+
+                        setTimeout(() => {
+                            renderMatchGrid();
+                        }, 400);
+                    }, 400);
+                }
+                state.matchSelected = [];
+            }
+        }
+
+        /* ================= WRITING CANVAS ================= */
+        let canvas, ctx, isDrawing = false;
+        let currentWritingWord = VOCABULARY[0];
+
+        function setupWritingCanvas() {
+            canvas = document.getElementById('writing-canvas');
+            ctx = canvas.getContext('2d');
+
+            // Set line style
+            ctx.lineWidth = 8;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.strokeStyle = '#dc2626'; // brand color stroke
+
+            // Event Listeners for Mouse and Touch
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseleave', stopDrawing);
+
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                isDrawing = true;
+                ctx.beginPath();
+                ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+            });
+
+            canvas.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                if (!isDrawing) return;
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+                ctx.stroke();
+            });
+
+            canvas.addEventListener('touchend', stopDrawing);
+
+            // Populate selector
+            const select = document.getElementById('writing-word-select');
+            select.innerHTML = VOCABULARY.map(v => `<option value="${v.id}">${v.hanzi} (${v.pinyin})</option>`).join('');
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            const rect = canvas.getBoundingClientRect();
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.stroke();
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function updateWritingWord() {
+            const val = document.getElementById('writing-word-select').value;
+            const found = VOCABULARY.find(v => v.id === val);
+            if (found) setWritingWord(found);
+        }
+
+        function setWritingWord(wordObj) {
+            currentWritingWord = wordObj;
+            document.getElementById('canvas-underlay').innerText = wordObj.hanzi[0]; // First character reference
+            document.getElementById('writing-pinyin').innerText = wordObj.pinyin;
+            document.getElementById('writing-english').innerText = wordObj.english;
+            clearCanvas();
+        }
+    </script>
+</body>
+</html>
